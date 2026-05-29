@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antonia | Portfólio ★ </title>
+    <title>Antonia | Portfólio ★</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,19 +13,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: {
+                        accent: {
+                            400: '#60A5FA',
                             500: '#3B82F6',
                             600: '#2563EB',
                         },
-                        dark: {
+                        brandDark: {
+                            950: '#0B0F19',
                             900: '#111827',
                             800: '#1F2937',
+                            700: '#374151'
                         }
                     }
                 }
@@ -34,565 +38,370 @@
     </script>
 
     <style>
-        .profile-header {
-            position: relative;
-            overflow: visible;
-            height: 21.5rem;
-        }
-        
-        .profile-image-container {
-            position: absolute;
-            bottom: -5rem;
-            z-index: 20;
-        }
-        
-        .profile-image-wrapper {
-            position: relative;
-            width: 10rem;
-            height: 10rem;
-            border: 4px solid white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        @media (min-width: 768px) {
-            .profile-image-wrapper {
-                width: 16rem;
-                height: 16rem;
-            }
-        }
-        
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 9999px;
-            object-fit: cover;
-        }
-        
-        .tab-button {
-            position: relative;
-            padding-bottom: 0.5rem;
-            font-weight: 500;
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-button:hover, .tab-button.active {
-            color: #042355;
-        }
-        
-        .indicator {
-            height: 2px;
-            background-color: #3B82F6;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .project-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .tech-badge {
-            transition: all 0.2s ease;
-        }
-        
-        .tech-badge:hover {
-            transform: scale(1.05);
-        }
-        
-        .experience-card {
-            transition: transform 0.3s ease;
-        }
-        
-        .experience-card:hover {
-            transform: translateY(-3px);
-        }
+        [v-cloak] { display: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
-    <div id="app">
+<body class="bg-slate-50 dark:bg-brandDark-950 font-sans text-slate-600 dark:text-slate-300 antialiased min-h-screen transition-colors duration-300">
 
+    <div id="app" class="flex flex-col lg:flex-row min-h-screen w-full relative" v-cloak>
+        
+        <div class="fixed bottom-6 right-6 lg:bottom-auto lg:top-6 lg:right-6 z-[100]">
+            <button 
+                @click="toggleTheme" 
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 text-amber-500 dark:text-accent-400 shadow-xl hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 focus:outline-none"
+                aria-label="Alternar tema"
+                title="Alternar tema"
+            >
+                <i v-if="isDarkMode" class="fas fa-sun text-lg"></i>
+                <i v-else class="fas fa-moon text-lg"></i>
+            </button>
+        </div>
 
-        <header class="relative bg-gradient-to-r from-blue-500 to-blue-600 profile-header pt-12 pb-8 md:pb-12">
-            <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center">
-
-                <div class="profile-image-container order-1 md:order-none mb-4 md:mb-0 md:mr-8 lg:mr-12 mt: 40">
-                    <div class="profile-image-wrapper rounded-full">
-                        <img 
-                            src="./imagens/icon-antonia.jpg"
-                            alt="Maria Antonia" 
-                            class="profile-image"
-                        >
-                    </div>
+        <aside class="w-full lg:w-80 bg-white dark:bg-brandDark-900 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 lg:fixed lg:h-screen flex flex-col justify-between p-6 lg:p-8 z-50 transition-colors duration-300">
+            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+                <div class="relative w-24 h-24 lg:w-32 lg:h-32 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl mb-4">
+                    <img 
+                        src="./imagens/icon-antonia.jpg"
+                        alt="Maria Antonia" 
+                        class="w-full h-full object-cover"
+                        onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=Antonia'"
+                    >
                 </div>
-                
-                <div class="text-center md:text-left mt-60 md:mt-48 md:ml-72">
-    <h1 class="text-3xl md:text-4xl font-bold text-white">Maria Antonia Cabral de Vasconcelos</h1>
-    <p class="text-blue-100 text-lg md:text-xl mt-2">Desenvolvedora Full-Stack | Design UX/UI | Product Owner</p>
-    
-    <div class="mt-12 flex justify-center md:justify-start gap-8 relative md:mt-1" ref="tabsContainer">
-        <button 
-            v-for="(tab, index) in tabs" 
-            :key="index"
-            @click="setActiveTab(tab.id)"
-            class="tab-button"
-            :class="{ 'active': activeTab === tab.id }"
-            :ref="el => { if (el) tabElements[index] = el }"
-        >
-            {{ tab.label }}
-        </button>
 
-        <div class="indicator" :style="indicatorStyle"></div>
-    </div>
-</div>
+                <h1 class="text-xl lg:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    Maria Antonia Cabral de Vasconcelos
+                </h1>
+                <p class="text-slate-500 dark:text-slate-400 text-xs mt-2 leading-relaxed">
+                    Desenvolvedora Fullstack Pleno | Engenheira de Software
+                </p>
+
+                <div class="mt-5 flex flex-wrap justify-center lg:justify-start gap-2 text-[11px]">
+                    <span class="inline-flex items-center bg-accent-500/10 text-accent-600 dark:text-accent-400 px-3 py-1.5 rounded-full border border-accent-500/20 shadow-sm font-medium">
+                        <i class="fas fa-map-marker-alt mr-1.5"></i> João Pessoa — PB
+                    </span>
+                    <span class="inline-flex items-center bg-gradient-to-r from-amber-500/10 to-orange-500/10 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-full border border-amber-500/20 shadow-sm font-medium">
+                        <i class="fas fa-code-branch mr-1.5 text-orange-500 dark:text-orange-400"></i> JavaScript & Java
+                    </span>
+                </div>
+
+                <nav class="hidden lg:flex flex-col gap-2 mt-8 w-full text-sm font-medium">
+                    <a href="#about" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-brandDark-800 transition group">
+                        <i class="fas fa-user text-slate-400 dark:text-slate-500 group-hover:text-accent-500 dark:group-hover:text-accent-400 transition w-5"></i> Sobre Mim
+                    </a>
+                    <a href="#experience" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-brandDark-800 transition group">
+                        <i class="fas fa-briefcase text-slate-400 dark:text-slate-500 group-hover:text-accent-500 dark:group-hover:text-accent-400 transition w-5"></i> Experiências
+                    </a>
+                    <a href="#technologies" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-brandDark-800 transition group">
+                        <i class="fas fa-layer-group text-slate-400 dark:text-slate-500 group-hover:text-accent-500 dark:group-hover:text-accent-400 transition w-5"></i> Tecnologias
+                    </a>
+                    <a href="#projects" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-brandDark-800 transition group">
+                        <i class="fas fa-folder-open text-slate-400 dark:text-slate-500 group-hover:text-accent-500 dark:group-hover:text-accent-400 transition w-5"></i> Projetos
+                    </a>
+                </nav>
             </div>
-        </header>
 
+            <div class="mt-6 lg:mt-0 pt-4 lg:pt-0 border-t border-slate-200 dark:border-slate-800 lg:border-t-0 flex flex-col items-center lg:items-start gap-4 w-full">
+                <div class="flex items-center gap-3">
+                    <a href="https://github.com/antonia-exe" target="_blank" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-brandDark-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition">
+                        <i class="fab fa-github text-base"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/antonia-vasconcelos-mac/" target="_blank" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-brandDark-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition">
+                        <i class="fab fa-linkedin text-base"></i>
+                    </a>
+                </div>
+                <div class="text-[10px] text-slate-400 dark:text-slate-500 text-center lg:text-left">
+                    <p>© 2026. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </aside>
 
-        <section class="bg-white py-6 shadow-sm">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <main class="flex-grow lg:pl-80 w-full flex flex-col justify-between min-h-screen">
+            <div class="max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-12 space-y-16 lg:space-y-24">
+
+                <section id="about" class="scroll-mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                    <div class="md:col-span-2 bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col justify-between transition-colors duration-300">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+                                <i class="fas fa-user-astronaut text-accent-500 dark:text-accent-400"></i> Um pouco sobre mim
+                            </h2>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Olá! Sou uma cientista da computação apaixonada por criar soluções tecnológicas escaláveis que unem inovação técnica e impacto real no negócio. Minha atuação foca em balancear arquiteturas de código limpas com usabilidade moderna de interfaces.
+                            </p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center gap-3 text-xs">
+                            <div class="w-8 h-8 rounded-lg bg-accent-500/10 flex items-center justify-center text-accent-600 dark:text-accent-400 flex-shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <p class="text-[10px] text-slate-400 dark:text-slate-500 font-medium uppercase tracking-wider">Contato</p>
+                                <p class="font-medium text-slate-700 dark:text-slate-300 truncate">antoniaacaabral@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-xl transition-colors duration-300">
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+                            <i class="fas fa-graduation-cap text-accent-500 dark:text-accent-400"></i> Acadêmico
+                        </h2>
+                        <div class="space-y-4 text-xs">
+                            <div class="border-l-2 border-accent-500 pl-3">
+                                <span class="text-[10px] text-accent-600 dark:text-accent-400 font-semibold uppercase">Mestrado</span>
+                                <h3 class="font-bold text-slate-900 dark:text-white mt-0.5">Tecnologia da Informação</h3>
+                                <p class="text-slate-400 dark:text-slate-500 mt-0.5">IFPB</p>
+                            </div>
+                            <div class="border-l-2 border-slate-300 dark:border-slate-700 pl-3">
+                                <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold uppercase">Licenciatura</span>
+                                <h3 class="font-bold text-slate-700 dark:text-slate-400 mt-0.5">Ciência da Computação</h3>
+                                <p class="text-slate-400 dark:text-slate-500 mt-0.5">UFPB</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="experience" class="scroll-mt-24 space-y-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fas fa-briefcase text-accent-500 dark:text-accent-400"></i> Experiências profissionais
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-slate-300 dark:hover:border-slate-700 transition duration-300">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
+                                <div>
+                                    <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded uppercase">Atual</span>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mt-1.5">Desenvolvedor Fullstack Pleno</h3>
+                                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Miriri Alimentos e Bioenergia S/A</p>
+                                </div>
+                                <span class="text-[11px] font-medium text-slate-500 bg-slate-100 dark:bg-brandDark-950 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800">abr. de 2025 - o momento • 1 ano e 1 mês</span>
+                            </div>
+                            <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <li v-for="item in miririTasks" :key="item" class="flex items-start gap-2">
+                                    <i class="fas fa-minus text-emerald-500 text-[10px] mt-1.5 flex-shrink-0"></i>
+                                    <span class="leading-relaxed">{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-slate-300 dark:hover:border-slate-700 transition duration-300">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-accent-500"></div>
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Desenvolvedor Fullstack Jr.</h3>
+                                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Sindicato da Indústria de Fabricação do Álcool - PB (Sindalcool)</p>
+                                </div>
+                                <span class="text-[11px] font-medium text-slate-500 bg-slate-100 dark:bg-brandDark-950 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800">dez. de 2022 - fev. de 2024 • 1 ano e 2 meses</span>
+                            </div>
+                            <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <li v-for="item in sindTasks" :key="item" class="flex items-start gap-2">
+                                    <i class="fas fa-minus text-accent-500 dark:text-accent-400 text-[10px] mt-1.5 flex-shrink-0"></i>
+                                    <span class="leading-relaxed">{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden group hover:border-slate-300 dark:hover:border-slate-700 transition duration-300">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-slate-400 dark:bg-slate-700"></div>
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-2 mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">[Estágio] Desenvolvedor Fullstack Jr.</h3>
+                                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Universidade Federal da Paraíba (UFPB)</p>
+                                </div>
+                                <span class="text-[11px] font-medium text-slate-500 bg-slate-100 dark:bg-brandDark-950 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-800">fev. de 2023 - jan. de 2024 • 11 meses</span>
+                            </div>
+                            <ul class="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <li v-for="item in ufpbTasks" :key="item" class="flex items-start gap-2">
+                                    <i class="fas fa-minus text-slate-400 dark:text-slate-600 text-[10px] mt-1.5 flex-shrink-0"></i>
+                                    <span class="leading-relaxed">{{ item }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="technologies" class="scroll-mt-24 space-y-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fas fa-layer-group text-accent-500 dark:text-accent-400"></i> Stack tecnológica
+                    </h2>
     
-            <div class="bg-blue-50 p-4 rounded-lg text-center">
-                <p class="text-blue-500 text-sm font-medium">LINGUAGEM FAVORITA</p>
-                <h2 class="text-blue-800 text-xl font-bold mt-1">JavaScript</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div v-for="(skills, category) in techStack" :key="category" 
+                            class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-md flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 transition duration-300">
+            
+                        <div>
+                        <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 tracking-wider uppercase mb-3 flex items-center gap-2">
+                            <span class="w-3 h-0.5 bg-accent-500 inline-block"></span> {{ category }}
+                        </h3>
+                
+                        <div class="flex flex-wrap gap-1.5">
+                            <span v-for="skill in skills" :key="skill" 
+                                class="text-[11px] font-medium bg-slate-100 dark:bg-brandDark-950 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800/60 px-2.5 py-1 rounded-lg hover:border-accent-500/30 dark:hover:border-accent-400/30 transition-colors duration-200">
+                                {{ skill }}
+                    </span>
+                </div>
             </div>
             
-
-            <div class="bg-blue-50 p-4 rounded-lg text-center">
-                <p class="text-blue-500 text-sm font-medium">LOCALIZAÇÃO</p>
-                <h2 class="text-blue-800 text-xl font-bold mt-1">João Pessoa - PB</h2>
-            </div>
         </div>
     </div>
 </section>
 
-
-        <main class="container mx-auto px-4 py-12">
-
-            <div v-if="activeTab === 'about'" class="about-section max-w-5xl mx-auto">
-                <div class="flex flex-col md:flex-row gap-8">
-                    <div class="md:w-1/3">
-                        <div class="bg-white p-6 rounded-xl shadow-md">
-                            <h2 class="text-2xl font-bold text-blue-600 mb-4">Sobre Mim</h2>
-                            <p class="text-gray-700 mb-6 leading-relaxed">
-                                Olá! Sou uma cientista da computação apaixonada por criar soluções tecnológicas 
-                                que unem inovação e impacto real. Acredito que a tecnologia só faz sentido quando 
-                                melhora a vida das pessoas, por isso meu trabalho é guiado pela experiência do 
-                                usuário, usabilidade e propósito.
-                            </p>
-                            <div class="space-y-4">
-                                <div class="flex items-start">
-                                    <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                        <i class="fas fa-envelope text-blue-500"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-gray-500 text-sm">Email</p>
-                                        <p class="font-medium">antoniaacaabral@gmail.com</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <section id="projects" class="scroll-mt-24 space-y-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fas fa-folder-open text-accent-500 dark:text-accent-400"></i> Projetos em destaque
+                    </h2>
                     
-                    <div class="md:w-2/3">
-                        <div class="bg-white p-6 rounded-xl shadow-md">
-                            <h2 class="text-2xl font-bold text-blue-600 mb-6">Formação Acadêmica</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div v-for="project in projects" :key="project.title" class="bg-white dark:bg-brandDark-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition flex flex-col justify-between group transition-colors duration-300">
+                            <div class="p-5">
+                                <div class="flex justify-between items-start gap-4 mb-3">
+                                    <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-3">
+                                        <span class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-brandDark-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-accent-600 dark:text-accent-400 group-hover:border-accent-500/30 transition-colors">
+                                            <i :class="project.iconClass"></i>
+                                        </span> 
+                                        <span class="group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">{{ project.title }}</span>
+                                    </h3>
+                                    <span class="bg-slate-100 dark:bg-brandDark-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[10px] px-2 py-0.5 rounded font-medium tracking-wide uppercase whitespace-nowrap">
+                                        {{ project.type }}
+                                    </span>
+                                </div>
+                                <p class="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-4">
+                                    {{ project.description }}
+                                </p>
+                            </div>
                             
-                            <div class="space-y-6">
-
-                                <div class="flex items-start">
-                                    <div class="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                        <i class="fas fa-graduation-cap text-blue-500 text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-lg">Mestrado em Tecnologia da Informação</h3>
-                                        <p class="text-gray-600">Instituto Federal de Educação, Ciência e Tecnologia da Paraíba</p>
-
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="bg-blue-100 p-3 rounded-full mr-4 flex-shrink-0">
-                                        <i class="fas fa-graduation-cap text-blue-500 text-xl"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-lg">Licenciatura em Ciência da Computação</h3>
-                                        <p class="text-gray-600">Universidade Federal da Paraíba</p>
-
-                                    </div>
-                                </div>
-                                
+                            <div class="px-5 pb-5 pt-3 bg-slate-50 dark:bg-brandDark-950/40 border-t border-slate-200 dark:border-slate-800/50 flex flex-wrap gap-1">
+                                <span v-for="tech in project.stack" :key="tech" class="text-[10px] font-medium bg-slate-200/60 dark:bg-brandDark-800 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700/60 px-2 py-0.5 rounded">
+                                    {{ tech }}
+                                </span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
             </div>
 
-            <!-- Experiência -->
-            <div v-if="activeTab === 'experience'" class="py-8 max-w-5xl mx-auto">
-                <h2 class="text-3xl font-bold text-blue-600 mb-8 text-center md:text-left">Minha Jornada Profissional</h2>
-                
-                <!-- Experiências principais -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                    <!-- Experiência 1 -->
-                    <div class="experience-card bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-blue-200 hover:shadow-lg">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold">Desenvolvedora Jr.</h3>
-                                    <p class="text-gray-600">Miriri Alimentos e Bioenergia S/A</p>
-                                    <p class="text-gray-500 text-sm mt-1">Presente</p>
-                                </div>
-                                <div class="bg-blue-100 p-3 rounded-full">
-                                    <i class="fas fa-laptop-code text-blue-500 text-xl"></i>
-                                </div>
-                            </div>
-                            <p class="text-gray-700">
-                                Atuo no desenvolvimento de sites e aplicativos, desde análise de requisitos até implementação. 
-                                Combino habilidades técnicas com visão de UX/UI para criar interfaces intuitivas e funcionais.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Experiência 2 -->
-                    <div class="experience-card bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-blue-200 hover:shadow-lg">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 class="text-xl font-bold">Webmaster</h3>
-                                    <p class="text-gray-600">Sindicato do Álcool da Paraíba</p>
-                                    <p class="text-gray-500 text-sm mt-1">2022 - 2024</p>
-                                </div>
-                                <div class="bg-blue-100 p-3 rounded-full">
-                                    <i class="fas fa-globe text-blue-500 text-xl"></i>
-                                </div>
-                            </div>
-                            <p class="text-gray-700">
-                                Gerenciava a operação técnica de sites, incluindo atualização de conteúdo e melhoria contínua 
-                                da experiência do usuário, garantindo que os sites estivessem sempre funcionais.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Outras experiências -->
-                <h3 class="text-2xl font-bold text-blue-600 mb-6">Outras Experiências</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Freelancer -->
-                    <div class="experience-card bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-blue-200 p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="font-bold">Programa de Licenciaturas - PROLICEN</h4>
-                                <p class="text-gray-500 text-sm">Universidade Federal da Paraíba</p>
-                            </div>
-                            <div class="bg-blue-100 p-2 rounded-full">
-                                <i class="fas fa-user-graduate text-blue-500"></i>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 text-sm">
-                            Ministrei aulas sobre pensamento computacional para crianças e adolescentes.
-                        </p>
-                    </div>
-                    
-                    <!-- Professora -->
-                    <div class="experience-card bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-blue-200 p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="font-bold">Programa de Iniciação à Docência</h4>
-                                <p class="text-gray-500 text-sm">Universidade Federal da Paraíba</p>
-                            </div>
-                            <div class="bg-blue-100 p-2 rounded-full">
-                                <i class="fas fa-chalkboard-teacher text-blue-500"></i>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 text-sm">
-                            Planejei aulas para adolescentes com foco na BNCC de Computação.
-                        </p>
-                    </div>
-                    
-                    <!-- Voluntária -->
-                    <div class="experience-card bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-blue-200 p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="font-bold">Universi.Me - Projeto de Extensão</h4>
-                                <p class="text-gray-500 text-sm">Universidade Federal da Paraíba</p>
-                            </div>
-                            <div class="bg-blue-100 p-2 rounded-full">
-                                <i class="fas fa-hands-helping text-blue-500"></i>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 text-sm">
-                            Participei do projeto como Design UX/UI para criar uma rede social do Campus IV.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tecnologias -->
-            <div v-if="activeTab === 'technologies'" class="py-8 max-w-5xl mx-auto">
-                <h2 class="text-3xl font-bold text-blue-600 mb-8 text-center md:text-left">Minhas Habilidades Técnicas</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Frontend -->
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="bg-blue-500 p-4">
-                            <h3 class="text-xl font-bold text-white flex items-center">
-                                <i class="fas fa-laptop-code mr-3"></i>
-                                Frontend
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-blue-600">React/Next.js</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 90%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-blue-600">JavaScript/TypeScript</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-blue-600">Tailwind CSS</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 80%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Backend -->
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="bg-green-500 p-4">
-                            <h3 class="text-xl font-bold text-white flex items-center">
-                                <i class="fas fa-server mr-3"></i>
-                                Backend
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-green-600">Node.js</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-green-500 h-2 rounded-full" style="width: 80%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-green-600">Python</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-green-500 h-2 rounded-full" style="width: 90%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-green-600">Banco de Dados</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Outras -->
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="bg-purple-500 p-4">
-                            <h3 class="text-xl font-bold text-white flex items-center">
-                                <i class="fas fa-tools mr-3"></i>
-                                Outras
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-purple-600">Git</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 90%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-purple-600">Figma</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 70%"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-purple-600">Scrum</h4>
-                                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 85%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Projetos -->
-            <div v-if="activeTab === 'projects'" class="py-8 max-w-5xl mx-auto">
-                <h2 class="text-3xl font-bold text-blue-600 mb-8 text-center md:text-left">Meus Projetos</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Projeto 1 -->
-                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="h-3 bg-blue-500"></div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-bold text-blue-600">Agenda CAE</h3>
-                                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Web App</span>
-                            </div>
-                            <p class="text-gray-700 mb-4">
-                                Plataforma de apoio psicológico acadêmico para agendamento de consultas e gestão de plantões psicológicos.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-badge bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">React</span>
-                                <span class="tech-badge bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">Node.js</span>
-                                <span class="tech-badge bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">Sequelize</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Projeto 2 -->
-                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="h-3 bg-green-500"></div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-bold text-green-600">Sistema de Sugestões</h3>
-                                <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-medium">Web/Mobile</span>
-                            </div>
-                            <p class="text-gray-700 mb-4">
-                                Sistema interativo para colaboradores compartilharem ideias e melhorias, promovendo engajamento e inovação.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-badge bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">React Native</span>
-                                <span class="tech-badge bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">TypeScript</span>
-                                <span class="tech-badge bg-green-100 text-green-600 px-2 py-1 rounded-full text-xs">Expo</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Projeto 3 -->
-                    <div class="project-card bg-white rounded-xl shadow-md overflow-hidden">
-                        <div class="h-3 bg-purple-500"></div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-xl font-bold text-purple-600">Intranet Corporativa</h3>
-                                <span class="bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-xs font-medium">Sistema</span>
-                            </div>
-                            <p class="text-gray-700 mb-4">
-                                Portal unificado com 12+ módulos para gestão empresarial integrada com diversos recursos corporativos.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="tech-badge bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs">React</span>
-                                <span class="tech-badge bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs">JavaScript</span>
-                                <span class="tech-badge bg-purple-100 text-purple-600 px-2 py-1 rounded-full text-xs">MySQL</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                
-                </div>
-            </div>
+            <footer class="border-t border-slate-200 dark:border-slate-900 bg-white/50 dark:bg-brandDark-900/50 py-6 text-center text-xs text-slate-400 dark:text-slate-600 w-full flex flex-col sm:flex-row justify-between px-6 lg:px-12 gap-2 mt-12 transition-colors duration-300">
+                <p>Maria Antonia Cabral de Vasconcelos ★ Desenvolvedora FullStack</p>
+            </footer>
         </main>
 
-        <!-- Rodapé -->
-        <footer class="bg-gray-900 text-white py-8">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <h2 class="text-xl font-bold">Maria Antonia Cabral de Vasconcelos ★ </h2>
-                        <p class="text-gray-400">Desenvolvedora Full-Stack & Product Owner</p>
-                    </div>
-                    
-                    <div class="flex space-x-4">
-                        <a href="https://github.com/antonia-exe" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/antonia-vasconcelos-mac/" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-500 text-sm">
-                    <p>© 2025. Todos os direitos reservados.</p>
-                </div>
-            </div>
-        </footer>
     </div>
 
-    <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.min.js"></script>
     <script>
-        const { createApp, ref, watch, onMounted } = Vue;
+        const { createApp, ref, onMounted } = Vue;
 
         createApp({
             setup() {
-                const tabs = [
-                    { id: 'about', label: 'Sobre Mim' },
-                    { id: 'experience', label: 'Experiências' },
-                    { id: 'technologies', label: 'Tecnologias' },
-                    { id: 'projects', label: 'Projetos' }
-                ];
-                
-                const activeTab = ref('about');
-                const tabElements = ref([]);
-                const tabsContainer = ref(null);
-                const indicatorStyle = ref({
-                    width: '0px',
-                    left: '0px'
-                });
+                const isDarkMode = ref(true);
 
-                const setActiveTab = (tabId) => {
-                    activeTab.value = tabId;
-                    updateIndicatorPosition();
-                };
-
-                const updateIndicatorPosition = () => {
-                    const index = tabs.findIndex(tab => tab.id === activeTab.value);
-                    if (index >= 0 && tabElements.value[index]) {
-                        const tab = tabElements.value[index];
-                        const containerRect = tabsContainer.value.getBoundingClientRect();
-                        const tabRect = tab.getBoundingClientRect();
-                        
-                        indicatorStyle.value = {
-                            width: `${tabRect.width}px`,
-                            left: `${tabRect.left - containerRect.left}px`
-                        };
+                const toggleTheme = () => {
+                    isDarkMode.value = !isDarkMode.value;
+                    if (isDarkMode.value) {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
                     }
                 };
 
                 onMounted(() => {
-                    updateIndicatorPosition();
-                    window.addEventListener('resize', updateIndicatorPosition);
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'light') {
+                        isDarkMode.value = false;
+                        document.documentElement.classList.remove('dark');
+                    } else {
+                        isDarkMode.value = true;
+                        document.documentElement.classList.add('dark');
+                    }
                 });
 
-                watch(activeTab, updateIndicatorPosition);
+                const miririTasks = [
+                    "Atuação na Intranet interna desenvolvendo soluções para outras equipes, com foco em escalabilidade e performance.",
+                    "Desenvolvimento de aplicações nativas e web utilizando Flutter, PHP, Java e React.js.",
+                    "Manutenção estrutural e otimização de bancos de dados relacionais PostgreSQL e SQL Server.",
+                    "Criação de serviços empresariais core que reduziram custos operacionais com contratos de fornecedores terceiros.",
+                    "Gestão ativa de projetos com metodologias ágeis (Scrum), executando refinamento técnico, documentação de requisitos e planejamentos de sprints.",
+                    "Prototipação de interfaces web e mobile responsivas ponta a ponta com o Figma.",
+                    "Atualização contínua de microsserviços legados para versões recentes corrigindo vulnerabilidades ativas e falhas críticas de segurança."
+                ];
+
+                const sindTasks = [
+                    "Desenvolvimento e sustentação de aplicações web robustas em PHP e Vue.js.",
+                    "Atualização, migração e manutenção de bancos de dados relacionais PostgreSQL e MySQL.",
+                    "Aplicação de patches de segurança críticos em servidores Linux, reduzindo custos operacionais de suporte de terceiros.",
+                    "Configuração e automação de fluxos elementares em pipelines CI/CD para otimizar build e deploy."
+                ];
+
+                const ufpbTasks = [
+                    "Criação e estruturação de web services modernos acoplados com TypeScript, ReactJS e empacotamento com Vite.",
+                    "Construção, modelagem e refatoração de APIs Restful orientadas a objetos utilizando Java, Spring Framework e persistência com JPA.",
+                    "Garantia de qualidade contínua com a escrita de rotinas de testes unitários automatizados com JUnit 5.",
+                    "Modelagem conceitual e implementação física de banco de dados relacionais estruturados in SQL e PostgreSQL."
+                ];
+
+                const techStack = {
+                    "Frontend": [
+                        "JavaScript", "TypeScript", "ReactJS / Vite", "React Native", 
+                        "Vue.js 2", "Angular", "Flutter", "Dart"
+                    ],
+                    "Backend": [
+                        "Java", "Spring MVC", "Node.js", "PHP", 
+                        "Python",
+                    ],
+                    "Teste": ["JUnit 5", "Jest", "Cypress.io"],
+                    "Banco de Dados": [
+                        "PostgreSQL", "MS SQL Server", "MySQL", "JPA / Hibernate"
+                    ],
+                    "Gestão, Design & Infra": [
+                        "Scrum / Agile", "Figma UI/UX", "Git / GitHub", "CI/CD Pipelines", "Gradle"
+                    ]
+                };
+
+                const projects = [
+                    {
+                        iconClass: "fas fa-calendar-alt",
+                        title: "Agenda CAE",
+                        type: "Web App",
+                        description: "Plataforma de apoio psicológico acadêmico para agendamento ágil de consultas, triagens dinâmicas e gestão integrada de plantões psicológicos no ambiente institucional.",
+                        stack: ["React", "Node.js", "Sequelize", "JavaScript"]
+                    },
+                    {
+                        iconClass: "fas fa-tasks",
+                        title: "Sistema de Planos de Ação",
+                        type: "Web App",
+                        description: "Plataforma inteligente focada no atingimento de metas e análise corporativa, ajudando corporações a identificar as causas reais de problemas nos fluxos de trabalho do dia a dia.",
+                        stack: ["JavaScript", "React", "Node.js", "PostgreSQL", "PHP"]
+                    },
+                    {
+                        iconClass: "fas fa-chart-bar",
+                        title: "Sistema de Gestão à Vista",
+                        type: "Dashboard",
+                        description: "Centralizador de dados operacionais que reúne e acompanha auditorias em tempo real, promovendo transparência radical e cultura de melhoria contínua corporativa.",
+                        stack: ["JavaScript", "React", "Node.js", "PostgreSQL", "PHP"]
+                    },
+                    {
+                        iconClass: "fas fa-clipboard-check",
+                        title: "Sistema de Auditorias",
+                        type: "Web / Mobile",
+                        description: "Ecossistema multiplataforma desenvolvido para execução de auditorias internas empresariais, provendo consistência, segurança e qualidade aos processos industriais.",
+                        stack: ["JavaScript", "React", "MySQL", "PHP", "Dart", "Flutter"]
+                    }
+                ];
 
                 return {
-                    tabs,
-                    activeTab,
-                    tabElements,
-                    tabsContainer,
-                    indicatorStyle,
-                    setActiveTab
+                    isDarkMode,
+                    toggleTheme,
+                    miririTasks,
+                    sindTasks,
+                    ufpbTasks,
+                    techStack,
+                    projects
                 };
             }
         }).mount('#app');
     </script>
 </body>
-
 </html>
-
-
-
